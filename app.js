@@ -3,8 +3,10 @@ let gameBoard = document.getElementById('gameBoard');
 let directionCoordonates = {x: 0, y: 0};
 let direction = '';
 
+let food = {x: generateCoordonates(), y: generateCoordonates()};
+
 let lastRenderTime = 0;
-const snakeSpeed = 5;
+const snakeSpeed = 10;
 
 let snakePieces = [{x: 10, y: 11}];
 
@@ -14,15 +16,31 @@ function playGame(currentTime) {
     if(timeSinceLastRender < 1 / snakeSpeed) return;
 
     lastRenderTime = currentTime;
-    console.log(timeSinceLastRender);
     moveSnake();
     draw();
 }
 
 
+function growSnake() {
+    if(eatFood()) {
+        moveFood();
+        snakePieces.push({...food});
+    }
+}
+
+function eatFood() {
+    return snakePieces.some(piece => {
+        return piece.x === food.x && piece.y === food.y;
+    })
+}
 
 function moveSnake() {
+    growSnake();
     getDirection();
+    if(snakePieces[0].x === 0 || snakePieces[0].x === 22 || snakePieces[0].y === 0 || snakePieces[0].y === 22) {
+        console.log("You lose!");
+        return;
+    }
     for(let i = snakePieces.length - 2; i >= 0; i--) {
         snakePieces[i+1] = { ...snakePieces[i] };
     }
@@ -31,8 +49,25 @@ function moveSnake() {
     snakePieces[0].y += directionCoordonates.y;
 }
 
+function moveFood() {
+    food = {x: generateCoordonates(), y: generateCoordonates()};
+}
+
 function draw() {
     gameBoard.innerHTML = '';
+    drawSnake();
+    drawFood();
+}
+
+function drawFood() {
+    let foodPiece = document.createElement('div');
+    foodPiece.style.gridRowStart = food.x;
+    foodPiece.style.gridColumnStart = food.y;
+    foodPiece.classList.add('food');
+    gameBoard.appendChild(foodPiece);
+}
+
+function drawSnake() {
     snakePieces.forEach(piece => {
         let part = document.createElement('div');
         part.style.gridRowStart = piece.x;
@@ -44,7 +79,6 @@ function draw() {
 
 function getDirection() {
     window.addEventListener('keydown', e => {
-        console.log(e.key);
         switch(e.key) {
             case 'ArrowUp':
                 if(direction === 'down') break;
@@ -68,6 +102,10 @@ function getDirection() {
                 break;
         }
     })
+}
+
+function generateCoordonates() {
+    return Math.floor(Math.random() * 21 + 1);
 }
 
 window.requestAnimationFrame(playGame);

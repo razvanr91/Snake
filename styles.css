@@ -25,10 +25,12 @@ body {
 	background-color: rgb(21, 87, 21);
 	border: .25vmin solid black;
 	border-radius: 50%;
+	z-index: 5;
 }
 
 .food {
 	background-color: rgb(255, 0, 76);
 	border: .25vmin solid black;
 	border-radius: 50%;
+	z-index: 2;
 }
