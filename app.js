@@ -31,10 +31,10 @@ snakeSpeedInput.addEventListener('change', (e) => {
 
 function changeSpeed() {
     let speedNow = snakeSpeedInput.value;
-    if(speedNow < 10) {
+    if (speedNow < 10) {
         speedSpan.classList.value = '';
         speedSpan.classList.add('text-success');
-    } else if(speedNow >= 10 && speedNow < 15) {
+    } else if (speedNow >= 10 && speedNow < 15) {
         speedSpan.classList.value = '';
         speedSpan.classList.add('text-warning');
     } else {
@@ -106,7 +106,9 @@ function moveSnake() {
 }
 
 function moveFood() {
-    food = { x: generateCoordonates(), y: generateCoordonates() };
+    let newFoodLocation = { x: generateCoordonates(), y: generateCoordonates() }
+
+    food = newFoodLocation;
 }
 
 function draw() {
