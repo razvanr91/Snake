@@ -93,7 +93,7 @@ function moveSnake() {
             endGame();
             return;
         }
-        
+
         // Shift coordonates on the grid to move the snake
         for (let i = snakePieces.length - 2; i >= 0; i--) {
             snakePieces[i + 1] = { ...snakePieces[i] };
@@ -108,7 +108,7 @@ function moveFood() {
     let newFoodLocation = { x: generateCoordonates(), y: generateCoordonates() }
     // If new food coordonates overlapse with the snake body
     // then keep generating untill the position is unique
-    while(snakeOverlap(newFoodLocation)) {
+    while (snakeOverlap(newFoodLocation)) {
         newFoodLocation = { x: generateCoordonates(), y: generateCoordonates() }
     }
     food = newFoodLocation;
@@ -116,7 +116,7 @@ function moveFood() {
 
 function snakeOverlap(pos) {
     return snakePieces.some((piece, index) => {
-        if(index === 0) return;
+        if (index === 0) return;
 
         return pos.x === piece.x && pos.y === piece.y;
     })
@@ -196,6 +196,7 @@ function playAgain() {
 function endGame() {
     loseGame = true;
     if (scoreKeeper > highScore) {
+        highScore = scoreKeeper;
         localStorage.setItem('highScore', scoreKeeper);
         document.getElementById('endGameText').innerHTML = `WOW! You've outdone yourself! The new highscore is ${highScore}`;
     } else {
