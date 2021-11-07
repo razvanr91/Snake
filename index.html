@@ -35,7 +35,7 @@
 
 		<div id="gameBoard" class="gameBoard"></div>
 
-		<div id="startModal" class="modal" tabindex="-1">
+		<div id="startModal" class="modal" data-keyboard="false" data-backdrop="static" tabindex="-1">
 			<div class="modal-dialog modal-dialog-centered modal-lg">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -45,19 +45,19 @@
 						<label for="snakeSpeed" class="form-label">Current nake speed is <span id="selectSpeed" class="text-success"></span></label>
 						<input type="range" class="form-range" id="snakeSpeed" value="7" min="7" max="20" />
 						<p class="text-center fs-2 text-success lead">This is Snake!</p>
-						
+
 						<p class="text-center fs-3">
 							Press the button bellow and using the arrow keys, move the snake to eat as much food as you can to beat your highscore!
 						</p>
 						<p class="text-center fs-2 text-success">Good Luck!</p>
 					</div>
 					<div class="modal-footer">
-						<button class="btn btn-primary m-auto" onclick="startGame()"><img src="/images/favicon-32x32.png" alt="snake icon"></button>
+						<button class="btn btn-primary m-auto" onclick="startGame()"><img src="/images/favicon-32x32.png" alt="snake icon" /></button>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div id="endModal" class="modal" tabindex="-1">
+		<div id="endModal" class="modal" data-bs-keyboard="false" data-bs-backdrop="static" tabindex="-1">
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
 					<div class="modal-header">

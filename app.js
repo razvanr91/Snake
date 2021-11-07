@@ -5,10 +5,16 @@ let scoreDisplay = document.getElementById('currentScore');
 let highScoreDisplay = document.getElementById('highScore');
 
 let startModalElement = document.getElementById('startModal');
-let startModal = new bootstrap.Modal(startModalElement);
+let startModal = new bootstrap.Modal(startModalElement, {
+    keyboard: false,
+    backdrop: 'static'
+});
 
 let endModalElement = document.getElementById('endModal');
-let endModal = new bootstrap.Modal(endModalElement);
+let endModal = new bootstrap.Modal(endModalElement, {
+    keyboard: false,
+    backdrop: 'static'
+});
 
 let scoreKeeper = 0;
 let highScore = 0;
@@ -211,7 +217,6 @@ function gameSetup() {
     speedSpan.innerHTML = 10;
     snakeSpeedInput.value = 10;
     startModal.show()
-    startGame();
 }
 
 window.onload = (e) => {
