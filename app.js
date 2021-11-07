@@ -57,16 +57,18 @@ function setHighScore() {
 
 function playGame(currentTime) {
     window.requestAnimationFrame(playGame)
+    // Calculates the seconds between renders so we render frames as per snake speed
     let timeSinceLastRender = (currentTime - previousTime) / 1000;
     if (timeSinceLastRender < 1 / snakeSpeed) return;
 
     previousTime = currentTime;
 
-    setHighScore();
     moveSnake();
     draw();
 }
 
+// If the snake head is on the same position as the food 
+// then push the food coordonates in the snake pieces array
 
 function growSnake() {
     if (eatFood()) {
@@ -77,13 +79,7 @@ function growSnake() {
     }
 }
 
-function checkEnd() {
-    return snakePieces.some((piece, index) => {
-        if (index === 0) return;
-        return piece.x === snakePieces[0].x && piece.y === snakePieces[0].y;
-    })
-}
-
+// Checks to see if the snake head is on the same position with the food
 function eatFood() {
     return snakePieces[0].x === food.x && snakePieces[0].y === food.y
 }
@@ -92,10 +88,13 @@ function moveSnake() {
     if (!loseGame) {
         growSnake();
         getDirection();
-        if (snakePieces[0].x === 0 || snakePieces[0].y === 0 || snakePieces[0].x > 21 || snakePieces[0].y > 21 || (snakePieces.length > 2 && checkEnd())) {
+        // Check to see if snake hits the walls || eats itself
+        if (snakePieces[0].x === 0 || snakePieces[0].y === 0 || snakePieces[0].x > 21 || snakePieces[0].y > 21 || (snakePieces.length > 2 && snakeOverlapse(snakePieces[0]))) {
             endGame();
             return;
         }
+        
+        // Shift coordonates on the grid to move the snake
         for (let i = snakePieces.length - 2; i >= 0; i--) {
             snakePieces[i + 1] = { ...snakePieces[i] };
         }
@@ -107,11 +106,25 @@ function moveSnake() {
 
 function moveFood() {
     let newFoodLocation = { x: generateCoordonates(), y: generateCoordonates() }
-
+    // If new food coordonates overlapse with the snake body
+    // then keep generating untill the position is unique
+    while(snakeOverlapse(newFoodLocation)) {
+        newFoodLocation = { x: generateCoordonates(), y: generateCoordonates() }
+    }
     food = newFoodLocation;
 }
 
+function snakeOverlapse(pos) {
+    return snakePieces.some((piece, index) => {
+        if(index === 0) return;
+
+        return pos.x === piece.x && pos.y === piece.y;
+    })
+}
+
 function draw() {
+    // Change the gameboard content so the snake pieces are rendered to the new position
+    // and not continuing indefinitely
     gameBoard.innerHTML = '';
     drawSnake();
     drawFood();
