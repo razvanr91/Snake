@@ -89,7 +89,7 @@ function moveSnake() {
         growSnake();
         getDirection();
         // Check to see if snake hits the walls || eats itself
-        if (snakePieces[0].x === 0 || snakePieces[0].y === 0 || snakePieces[0].x > 21 || snakePieces[0].y > 21 || (snakePieces.length > 2 && snakeOverlapse(snakePieces[0]))) {
+        if (snakePieces[0].x === 0 || snakePieces[0].y === 0 || snakePieces[0].x > 21 || snakePieces[0].y > 21 || (snakePieces.length > 2 && snakeOverlap(snakePieces[0]))) {
             endGame();
             return;
         }
@@ -108,13 +108,13 @@ function moveFood() {
     let newFoodLocation = { x: generateCoordonates(), y: generateCoordonates() }
     // If new food coordonates overlapse with the snake body
     // then keep generating untill the position is unique
-    while(snakeOverlapse(newFoodLocation)) {
+    while(snakeOverlap(newFoodLocation)) {
         newFoodLocation = { x: generateCoordonates(), y: generateCoordonates() }
     }
     food = newFoodLocation;
 }
 
-function snakeOverlapse(pos) {
+function snakeOverlap(pos) {
     return snakePieces.some((piece, index) => {
         if(index === 0) return;
 
