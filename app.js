@@ -19,9 +19,30 @@ let direction = '';
 let food = { x: generateCoordonates(), y: generateCoordonates() };
 
 let previousTime = 0;
-const snakeSpeed = 10;
+let snakeSpeed = 10;
 
 let snakePieces = [{ x: 10, y: 11 }];
+
+let speedSpan = document.getElementById('selectSpeed');
+let snakeSpeedInput = document.getElementById('snakeSpeed');
+snakeSpeedInput.addEventListener('change', (e) => {
+    changeSpeed();
+})
+
+function changeSpeed() {
+    let speedNow = snakeSpeedInput.value;
+    if(speedNow < 10) {
+        speedSpan.classList.value = '';
+        speedSpan.classList.add('text-success');
+    } else if(speedNow >= 10 && speedNow < 15) {
+        speedSpan.classList.value = '';
+        speedSpan.classList.add('text-warning');
+    } else {
+        speedSpan.classList.value = '';
+        speedSpan.classList.add('text-danger');
+    }
+    speedSpan.innerHTML = speedNow;
+}
 
 function setHighScore() {
     if ("highScore" in localStorage) {
@@ -149,6 +170,7 @@ function generateCoordonates() {
 
 function startGame() {
     startModal.hide();
+    snakeSpeed = parseInt(document.getElementById('snakeSpeed').value);
     window.requestAnimationFrame(playGame);
 }
 
@@ -168,7 +190,13 @@ function endGame() {
     endModal.show();
 }
 
-window.onload = (e) => {
+function gameSetup() {
     setHighScore();
+    speedSpan.innerHTML = 10;
+    snakeSpeedInput.value = 10;
     startModal.show()
+}
+
+window.onload = (e) => {
+    gameSetup();
 }
