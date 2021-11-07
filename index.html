@@ -4,6 +4,10 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
+		<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png" />
+		<link rel="manifest" href="images/site.webmanifest" />
 		<title>Snake</title>
 
 		<!-- Bootstrap -->
@@ -38,14 +42,16 @@
 						<h5 class="modal-title">Welcome to the classic!</h5>
 					</div>
 					<div class="modal-body">
-						<label for="snakeSpeed" class="form-label">Current nake speed is <span id="selectSpeed" class='text-success'></span></label>
-						<input type="range" class="form-range" id="snakeSpeed" value="7" min="7" max="20" >
+						<label for="snakeSpeed" class="form-label">Current nake speed is <span id="selectSpeed" class="text-success"></span></label>
+						<input type="range" class="form-range" id="snakeSpeed" value="7" min="7" max="20" />
 						<p class="text-center fs-2 text-success lead">This is Snake!</p>
-						<p class="text-center fs-3">Press the button bellow and using the arrow keys, move the snake to eat as much food as you can to beat your highscore!</p>
+						<p class="text-center fs-3">
+							Press the button bellow and using the arrow keys, move the snake to eat as much food as you can to beat your highscore!
+						</p>
 						<p class="text-center fs-2 text-success">Good Luck!</p>
 					</div>
 					<div class="modal-footer">
-						<button class="btn btn-primary m-auto" onclick=startGame()>Play</button>
+						<button class="btn btn-primary m-auto" onclick="startGame()">Play</button>
 					</div>
 				</div>
 			</div>
@@ -70,13 +76,17 @@
 		<div></div>
 		<footer class="d-flex flex-wrap justify-content-between align-items-center border-top">
 			<div class="container">
-				<h2 class="fs-3 text-white">
+				<h2 class="fs-5 text-white">
 					Photo by
 					<a class="link-light" href="https://unsplash.com/@kellysikkema?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
 						>Kelly Sikkema</a
 					>
-					on <a class="link-light" href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+					on
+					<a class="link-light" href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="blank"
+						>Unsplash</a
+					>
 				</h2>
+				<h2 class="text-white fs-5">Favicon thanks to <a class="link-light" href="https://favicon.io/" target="blank">Favicon.io</a></h2>
 			</div>
 		</footer>
 
