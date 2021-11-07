@@ -10,7 +10,7 @@ body {
 	background-image: url(./images/kelly-sikkema-PhWVUGV6z7M-unsplash.jpg);
 }
 
-#gameBoard {
+.gameBoard {
 	border-radius: 1%;
 	width: 100vmin;
 	height: 100vmin;
@@ -23,14 +23,14 @@ body {
 
 .snake {
 	background-color: rgb(21, 87, 21);
-	border: .25vmin solid black;
+	border: 0.25vmin solid black;
 	border-radius: 50%;
 	z-index: 5;
 }
 
 .food {
 	background-color: rgb(255, 0, 76);
-	border: .25vmin solid black;
+	border: 0.25vmin solid black;
 	border-radius: 50%;
 	z-index: 2;
 }
