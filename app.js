@@ -211,6 +211,7 @@ function gameSetup() {
     speedSpan.innerHTML = 10;
     snakeSpeedInput.value = 10;
     startModal.show()
+    startGame();
 }
 
 window.onload = (e) => {
