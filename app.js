@@ -116,24 +116,28 @@ function getDirection() {
     window.addEventListener('keydown', e => {
         switch (e.key) {
             case 'ArrowUp':
-                if (direction === 'down') break;
-                direction = "up";
-                directionCoordonates = { x: -1, y: 0 };
+                if (direction !== 'down') {
+                    direction = "up";
+                    directionCoordonates = { x: -1, y: 0 };
+                }
                 break;
             case 'ArrowRight':
-                if (direction === 'left') break;
-                direction = "right";
-                directionCoordonates = { x: 0, y: 1 };
+                if (direction !== 'left') {
+                    direction = "right";
+                    directionCoordonates = { x: 0, y: 1 };
+                }
                 break;
             case 'ArrowDown':
-                if (direction === 'up') break;
-                direction = "down";
-                directionCoordonates = { x: 1, y: 0 };
+                if (direction !== 'up') {
+                    direction = "down";
+                    directionCoordonates = { x: 1, y: 0 };
+                }
                 break;
             case 'ArrowLeft':
-                if (direction === 'right') break;
-                direction = "left";
-                directionCoordonates = { x: 0, y: -1 };
+                if (direction !== 'right') {
+                    direction = "left";
+                    directionCoordonates = { x: 0, y: -1 };
+                }
                 break;
         }
     })
@@ -160,7 +164,7 @@ function endGame() {
     } else {
         document.getElementById('endGameText').innerHTML = 'Better luck next time!';
     }
-    
+
     endModal.show();
 }
 
