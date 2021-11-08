@@ -63,7 +63,7 @@ function playGame(currentTime) {
 
     previousTime = currentTime;
 
-    moveSnake();
+    manageSnake();
     draw();
 }
 
@@ -98,12 +98,10 @@ function setHighScore() {
 // then push the food coordonates in the snake pieces array
 
 function growSnake() {
-    if (eatFood()) {
-        moveFood();
-        snakePieces.push({ ...food });
-        scoreKeeper++;
-        scoreDisplay.innerHTML = scoreKeeper;
-    }
+    moveFood();
+    snakePieces.push({ ...food });
+    scoreKeeper++;
+    scoreDisplay.innerHTML = scoreKeeper;
 }
 
 // Checks to see if the snake head is on the same position with the food
@@ -111,26 +109,34 @@ function eatFood() {
     return snakePieces[0].x === food.x && snakePieces[0].y === food.y
 }
 
-function moveSnake() {
-    if (!loseGame) {
+function manageSnake() {
+    if (loseGame) return;
+    getDirection();
+    moveSnake();
+    checkStatus();
+    if (eatFood()) {
         growSnake();
-        getDirection();
-        // Check to see if snake hits the walls || eats itself
-        if (snakePieces[0].x === 0 || snakePieces[0].y === 0 ||
-            snakePieces[0].x > 21 || snakePieces[0].y > 21 ||
-            (snakePieces.length > 2 && snakeOverlap(snakePieces[0]))) {
-            endGame();
-            return;
-        }
-
-        // Shift coordonates on the grid to move the snake
-        for (let i = snakePieces.length - 2; i >= 0; i--) {
-            snakePieces[i + 1] = { ...snakePieces[i] };
-        }
-
-        snakePieces[0].x += directionCoordonates.x;
-        snakePieces[0].y += directionCoordonates.y;
     }
+}
+
+// Check to see if snake hits the walls || eats itself
+function checkStatus() {
+    if (snakePieces[0].x === 0 || snakePieces[0].y === 0 ||
+        snakePieces[0].x > 21 || snakePieces[0].y > 21 ||
+        (snakePieces.length > 2 && snakeOverlap(snakePieces[0]))) {
+        endGame();
+    }
+    return;
+}
+
+function moveSnake() {
+    // Shift coordonates on the grid to move the snake
+    for (let i = snakePieces.length - 2; i >= 0; i--) {
+        snakePieces[i + 1] = { ...snakePieces[i] };
+    }
+
+    snakePieces[0].x += directionCoordonates.x;
+    snakePieces[0].y += directionCoordonates.y;
 }
 
 function moveFood() {
