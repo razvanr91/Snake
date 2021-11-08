@@ -39,6 +39,13 @@ window.onload = (e) => {
     gameSetup();
 }
 
+function gameSetup() {
+    setHighScore();
+    speedSpan.innerHTML = 10;
+    snakeSpeedInput.value = 10;
+    startModal.show()
+}
+
 function startGame() {
     startModal.hide();
     window.requestAnimationFrame(playGame);
@@ -46,13 +53,6 @@ function startGame() {
 
 function playAgain() {
     location.reload();
-}
-
-function gameSetup() {
-    setHighScore();
-    speedSpan.innerHTML = 10;
-    snakeSpeedInput.value = 10;
-    startModal.show()
 }
 
 function playGame(currentTime) {
