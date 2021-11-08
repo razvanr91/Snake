@@ -35,6 +35,38 @@ snakeSpeedInput.addEventListener('change', (e) => {
     changeSpeed();
 })
 
+window.onload = (e) => {
+    gameSetup();
+}
+
+function startGame() {
+    startModal.hide();
+    window.requestAnimationFrame(playGame);
+}
+
+function playAgain() {
+    location.reload();
+}
+
+function gameSetup() {
+    setHighScore();
+    speedSpan.innerHTML = 10;
+    snakeSpeedInput.value = 10;
+    startModal.show()
+}
+
+function playGame(currentTime) {
+    window.requestAnimationFrame(playGame);
+    // Calculates the seconds between renders so we render frames as per snake speed
+    let timeSinceLastRender = (currentTime - previousTime) / 1000;
+    if (timeSinceLastRender < 1 / snakeSpeed) return;
+
+    previousTime = currentTime;
+
+    moveSnake();
+    draw();
+}
+
 function changeSpeed() {
     let speedNow = snakeSpeedInput.value;
     if (speedNow < 10) {
@@ -48,6 +80,7 @@ function changeSpeed() {
         speedSpan.classList.add('text-danger');
     }
     speedSpan.innerHTML = speedNow;
+    snakeSpeed = parseInt(speedNow);
 }
 
 function setHighScore() {
@@ -59,18 +92,6 @@ function setHighScore() {
     }
 
     highScoreDisplay.innerHTML = highScore;
-}
-
-function playGame(currentTime) {
-    window.requestAnimationFrame(playGame)
-    // Calculates the seconds between renders so we render frames as per snake speed
-    let timeSinceLastRender = (currentTime - previousTime) / 1000;
-    if (timeSinceLastRender < 1 / snakeSpeed) return;
-
-    previousTime = currentTime;
-
-    moveSnake();
-    draw();
 }
 
 // If the snake head is on the same position as the food 
@@ -95,7 +116,9 @@ function moveSnake() {
         growSnake();
         getDirection();
         // Check to see if snake hits the walls || eats itself
-        if (snakePieces[0].x === 0 || snakePieces[0].y === 0 || snakePieces[0].x > 21 || snakePieces[0].y > 21 || (snakePieces.length > 2 && snakeOverlap(snakePieces[0]))) {
+        if (snakePieces[0].x === 0 || snakePieces[0].y === 0 ||
+            snakePieces[0].x > 21 || snakePieces[0].y > 21 ||
+            (snakePieces.length > 2 && snakeOverlap(snakePieces[0]))) {
             endGame();
             return;
         }
@@ -189,16 +212,6 @@ function generateCoordonates() {
     return Math.floor(Math.random() * 21 + 1);
 }
 
-function startGame() {
-    startModal.hide();
-    snakeSpeed = parseInt(document.getElementById('snakeSpeed').value);
-    window.requestAnimationFrame(playGame);
-}
-
-function playAgain() {
-    location.reload();
-}
-
 function endGame() {
     loseGame = true;
     if (scoreKeeper > highScore) {
@@ -210,15 +223,4 @@ function endGame() {
     }
 
     endModal.show();
-}
-
-function gameSetup() {
-    setHighScore();
-    speedSpan.innerHTML = 10;
-    snakeSpeedInput.value = 10;
-    startModal.show()
-}
-
-window.onload = (e) => {
-    gameSetup();
 }
